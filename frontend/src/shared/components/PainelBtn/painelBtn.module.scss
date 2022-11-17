@@ -1,0 +1,39 @@
+.fundo {
+    background: url(./element5-digital-QJtyomGCYGw-unsplash.jpg);
+    background-position: center;
+    background-position-y: 570px;
+    background-size: 800px;
+}
+
+.corSobreposicao {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(84, 38, 92, 0.59);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-weight: bold;
+    transition: all 0.5s;
+}
+
+.corSobreposicao:hover{
+    cursor: pointer;
+    background-color: rgba(84, 38, 92, 0.788);
+}
+
+.lg {
+    border-radius: 15px;
+    height: 215px;
+    width: 676px;
+    font-size: 32px;
+}
+
+.md {
+    border-radius: 10px;
+    width: 350px;
+    height: 150px;
+    font-size: 24px;
+}
