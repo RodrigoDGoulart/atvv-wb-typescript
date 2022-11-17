@@ -1,1 +1,1 @@
-export * from './PainelBtn/painelbtn';
+export * from './Btn/painelbtn';

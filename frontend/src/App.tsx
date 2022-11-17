@@ -5,10 +5,7 @@ function App() {
 
   return (
     <>
-      <PainelBtn image='sfddsf' tamanho='md'>
-        test
-      </PainelBtn>
-      <PainelBtn image='sfddsf' tamanho='lg'>
+      <PainelBtn nomeImagem='clientes' tamanho='md'>
         test
       </PainelBtn>
     </>
