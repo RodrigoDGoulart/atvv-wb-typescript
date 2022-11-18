@@ -41,3 +41,15 @@ export const CancelBtn = (props: configBtn) => {
         </span>
     )
 }
+
+interface selectBtn extends HTMLAttributes<HTMLButtonElement>{
+    status: 'enable' | 'disable'
+} 
+
+export const SelectBtn = (props: selectBtn) => {
+    return(
+        <span className={`${styles.selectContainer} ${styles[props.status]}`}>
+            {props.children}
+        </span>
+    )
+}

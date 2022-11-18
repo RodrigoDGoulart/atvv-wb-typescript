@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CancelBtn, ConfirmBtn, Header1, Header2, Header3, Inserir, InserirComRotulo, PainelBtn, Pesquisar } from './shared/components'
+import { CancelBtn, ConfirmBtn, Header1, Header2, Header3, Inserir, InserirComRotulo, PainelBtn, Pesquisar, SelectBtn } from './shared/components'
 
 function App() {
 
@@ -20,6 +20,13 @@ function App() {
       <CancelBtn>
         Cancelar
       </CancelBtn>
+
+      <SelectBtn status='enable'>
+        Teste
+      </SelectBtn>
+      <SelectBtn status='disable'>
+        Teste
+      </SelectBtn>
     </>
   )
 }

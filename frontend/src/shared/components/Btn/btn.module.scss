@@ -72,3 +72,25 @@
 .cancel:hover {
     background-color: #f3c4c4;
 }
+
+.selectContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 33px;
+}
+
+.selectContainer:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.enable {
+    border-bottom: 2px solid #54265C;
+    color: #54265C;
+}
+
+.disable {
+    border-bottom: 2px solid #6A6A6A;
+    color: #6A6A6A;
+}
