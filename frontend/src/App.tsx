@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Inserir, InserirComRotulo, PainelBtn, Pesquisar } from './shared/components'
+import { Header1, Header2, Header3, Inserir, InserirComRotulo, PainelBtn, Pesquisar } from './shared/components'
 
 function App() {
 
@@ -10,6 +10,9 @@ function App() {
       </PainelBtn>
       <InserirComRotulo rotulo='teste' placeholder='rotulo'/>
       <Pesquisar placeholder='Pesquise' />
+      <Header1>Teste</Header1>
+      <Header2>Teste</Header2>
+      <Header3>Teste</Header3>
     </>
   )
 }
