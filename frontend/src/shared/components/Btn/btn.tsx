@@ -1,5 +1,5 @@
-import { HtmlHTMLAttributes } from "react"
-import styles from './painelBtn.module.scss';
+import { HTMLAttributes, HtmlHTMLAttributes } from "react"
+import styles from './btn.module.scss';
 
 interface propsPainelBtn extends HtmlHTMLAttributes<HTMLDivElement> {
     nomeImagem: string,
@@ -8,13 +8,11 @@ interface propsPainelBtn extends HtmlHTMLAttributes<HTMLDivElement> {
 }
 
 export const PainelBtn = (props: propsPainelBtn) => {
-
-    // tamanhos: lg/md
-
     let sobreposicao = styles.corSobreposicao;
     let fundo = styles.fundo;
     let tamanho = styles[props.tamanho];
     let bgImagem = styles[props.nomeImagem];
+
     return (
         <>
             <div  className={`${bgImagem} ${fundo} ${tamanho}`}>
@@ -24,5 +22,22 @@ export const PainelBtn = (props: propsPainelBtn) => {
             </div>
         </>
     )
+}
 
+interface configBtn extends HTMLAttributes<HTMLButtonElement>{}
+
+export const ConfirmBtn = (props: configBtn) => {
+    return(
+        <span className={`${styles.btn} ${styles.confirm}`} onClick={props.onClick}>
+            {props.children}
+        </span>
+    )
+}
+
+export const CancelBtn = (props: configBtn) => {
+    return(
+        <span className={`${styles.btn} ${styles.cancel}`} onClick={props.onClick}>
+            {props.children}
+        </span>
+    )
 }

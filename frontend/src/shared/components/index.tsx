@@ -1,3 +1,3 @@
-export * from './Btn/painelbtn';
+export * from './Btn/btn';
 export * from './Inserir/inserir';
 export * from './Header/header';

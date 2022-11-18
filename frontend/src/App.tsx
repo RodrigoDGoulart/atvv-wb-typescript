@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Header1, Header2, Header3, Inserir, InserirComRotulo, PainelBtn, Pesquisar } from './shared/components'
+import { CancelBtn, ConfirmBtn, Header1, Header2, Header3, Inserir, InserirComRotulo, PainelBtn, Pesquisar } from './shared/components'
 
 function App() {
 
@@ -13,6 +13,13 @@ function App() {
       <Header1>Teste</Header1>
       <Header2>Teste</Header2>
       <Header3>Teste</Header3>
+
+      <ConfirmBtn>
+        Confirma
+      </ConfirmBtn>
+      <CancelBtn>
+        Cancelar
+      </CancelBtn>
     </>
   )
 }

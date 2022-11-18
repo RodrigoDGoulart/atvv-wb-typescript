@@ -40,3 +40,35 @@
     height: 150px;
     font-size: 24px;
 }
+
+.btn {
+    padding: 6px 6px 6px 10px;
+    font-size: 24px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.confirm {
+    color: #026700;
+    background-color: #7BE786;
+}
+
+.confirm:hover {
+    background-color: #aef7b5;
+}
+
+.cancel {
+    color: #A50000;
+    background-color: #F59F9F;
+}
+
+.cancel:hover {
+    background-color: #f3c4c4;
+}
