@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { PainelBtn } from './shared/components'
+import { Inserir, InserirComRotulo, PainelBtn, Pesquisar } from './shared/components'
 
 function App() {
 
@@ -8,6 +8,8 @@ function App() {
       <PainelBtn nomeImagem='clientes' tamanho='md'>
         test
       </PainelBtn>
+      <InserirComRotulo rotulo='teste' placeholder='rotulo'/>
+      <Pesquisar placeholder='Pesquise' />
     </>
   )
 }

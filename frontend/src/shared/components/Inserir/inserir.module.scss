@@ -1,0 +1,53 @@
+.input {
+    background-color: #F2F2F2;
+    border: none;
+    padding: 4px 4px 4px 10px;
+    color: #6A6A6A;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.input::placeholder{
+    color: #C7C7C7;
+    font-size: 18px;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.rotulo {
+    color: #54265C;
+    font-size: 24px;
+    margin: 0px;
+    font-weight: normal;
+}
+
+.pesquisa {
+    background-color: transparent;
+    border: none;
+    color: #C7C7C7;
+    font-size: 18px;
+}
+
+.pesquisa:focus {
+    outline: none;
+}
+
+.align {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+}
+
+.align * {
+    color: #C7C7C7;
+}
+
+.align input{
+    color: #6A6A6A;
+}
+
+.align input::placeholder{
+    color: #C7C7C7;
+}
