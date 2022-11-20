@@ -2,7 +2,7 @@ import { HTMLAttributes, HtmlHTMLAttributes } from "react"
 import styles from './btn.module.scss';
 
 interface propsPainelBtn extends HtmlHTMLAttributes<HTMLDivElement> {
-    nomeImagem: string,
+    imagem: string,
     tamanho: 'lg' | 'md',
 
 }
@@ -11,11 +11,12 @@ export const PainelBtn = (props: propsPainelBtn) => {
     let sobreposicao = styles.corSobreposicao;
     let fundo = styles.fundo;
     let tamanho = styles[props.tamanho];
-    let bgImagem = styles[props.nomeImagem];
 
     return (
         <>
-            <div  className={`${bgImagem} ${fundo} ${tamanho}`}>
+            <div 
+            style={{backgroundImage: `url(images/${props.imagem})`}} 
+            className={`${fundo} ${tamanho}`}>
                 <div className={`${sobreposicao} ${tamanho}`}>
                     {props.children}
                 </div>
@@ -48,8 +49,10 @@ interface selectBtn extends HTMLAttributes<HTMLButtonElement>{
 
 export const SelectBtn = (props: selectBtn) => {
     return(
-        <span className={`${styles.selectContainer} ${styles[props.status]}`}>
-            {props.children}
-        </span>
+        <div className={styles.SCompContainer}>
+            <span className={`${styles.selectContainer} ${styles[props.status]}`}>
+                {props.children}
+            </span>
+        </div>
     )
 }
