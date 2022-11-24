@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CancelBtn, ConfirmBtn, Header1, Header2, Header3, Inserir, InserirComRotulo, PainelBtn, PainelItem, PainelItemBtn, PainelItemBtnTeste, PainelRankingItem, Pesquisar, SelectBtn } from './shared/components'
+import { CancelBtn, ConfirmBtn, Header1, Header2, Header3, Inserir, InserirComRotulo, InserirImagem, PainelBtn, PainelItem, PainelItemBtn, PainelItemBtnTeste, PainelRankingItem, Pesquisar, SelectBtn } from './shared/components'
 import imgCliente from '../public/images/clientes.jpg';
 function App() {
 
@@ -29,6 +29,7 @@ function App() {
       <PainelRankingItem imagem={imgCliente} titulo='lorem ipsum' subtitulo='lorem ipsum dolor' ranking={4}/>
       <PainelItemBtn imagem={imgCliente} titulo='lorem ipsum' subtitulo='lorem ipsum dolor' onEdit={() => console.log('editando')} onDelete={() => console.log('Excluindo')} />
       <PainelItemBtnTeste imagem={imgCliente} titulo='teste' subtitulo='teste' onEdit={() => console.log('teste')} onDelete={() => console.log('teste')} />
+      <InserirImagem receberArquivo={(img) => console.log('cheguei')} />
     </>
   )
 }

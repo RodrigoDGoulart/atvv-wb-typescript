@@ -1,4 +1,6 @@
-import { HTMLAttributes } from 'react';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { HTMLAttributes, useState } from 'react';
 import styles from './inserir.module.scss';
 
 interface configInserir extends HTMLAttributes<HTMLInputElement> { }
@@ -31,5 +33,35 @@ export const Pesquisar = (props: configInserir) => {
             </span>
             <input placeholder={props.placeholder} className={styles.pesquisa} />
         </span>
+    )
+}
+
+import img from '../../../../public/images/sem-foto.png';
+interface configInserirImg extends HTMLAttributes<HTMLInputElement> {
+    receberArquivo: Function
+}
+
+export const InserirImagem = (props: configInserirImg) => {
+
+    const [imagem, setImagem] = useState(img);
+
+    const trocarImg = (img) => {
+        if(img){
+            props.receberArquivo(img);
+            setImagem(URL.createObjectURL(img));
+        }
+    }
+
+    return (
+        <>
+        <div className={styles.img} style={{
+            backgroundImage: `url(${imagem})`
+        }}>
+            <label className={styles.addImgBtn}>
+                <FontAwesomeIcon icon={faCamera} />
+                <input type='file' accept="image/png, image/jpeg" name="upload" className={styles.addImgInput} onChange={e => trocarImg(e.target.files[0])}></input>
+            </label>
+        </div>
+        </>
     )
 }

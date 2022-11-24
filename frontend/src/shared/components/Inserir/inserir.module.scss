@@ -51,3 +51,36 @@
 .align input::placeholder{
     color: #C7C7C7;
 }
+
+.addImgInput {
+    display: none;
+}
+
+.addImgBtn {
+    border-radius: 100%;
+    background-color: #54265C;
+    width: 80px;
+    height: 80px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    transition: all 0.25s;
+}
+
+.addImgBtn:hover{
+    cursor:pointer;
+    font-size: 35px;
+}
+
+.img {
+    width: 300px;
+    height: 300px;
+    border-radius: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+    background-size: cover;
+    background-position: center;
+}
