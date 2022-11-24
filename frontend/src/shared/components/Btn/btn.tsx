@@ -15,7 +15,7 @@ export const PainelBtn = (props: propsPainelBtn) => {
     return (
         <>
             <div 
-            style={{backgroundImage: `url(images/${props.imagem})`}} 
+            style={{backgroundImage: `url(${props.imagem})`}} 
             className={`${fundo} ${tamanho}`}>
                 <div className={`${sobreposicao} ${tamanho}`}>
                     {props.children}

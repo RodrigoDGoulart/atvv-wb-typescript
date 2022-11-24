@@ -11,7 +11,7 @@ export const PainelItem = (props: configPainelItem) => {
     return (
         <div className={`${styles.fundo} ${styles.container}`}>
             <div style={{
-                backgroundImage: `url(images/${props.imagem})`
+                backgroundImage: `url(${props.imagem})`
             }} className={styles.foto} />
             <div className={styles.conteudo}>
                 <p>{props.titulo}</p>
@@ -64,7 +64,29 @@ export const PainelItemBtn = (props: configPainelBtn) => {
     return (
         <div className={`${styles.fundo} ${styles.container}`}>
             <div style={{
-                backgroundImage: `url(images/${props.imagem})`
+                backgroundImage: `url(${props.imagem})`
+            }} className={styles.foto} />
+            <div className={styles.conteudo}>
+                <p>{props.titulo}</p>
+                <p>{props.subtitulo}</p>
+            </div>
+            <div className={styles.buttons}>
+                <span className={`material-icons ${styles.edit}`} onClick={e => props.onEdit()}>
+                    edit
+                </span>
+                <span className={`material-icons ${styles.delete}`} onClick={e => props.onDelete()}>
+                    delete
+                </span>
+            </div>
+        </div>
+    )
+}
+
+export const PainelItemBtnTeste = (props: configPainelBtn) => {
+    return (
+        <div className={`${styles.fundo} ${styles.container}`}>
+            <div style={{
+                backgroundImage: `url(${props.imagem})`
             }} className={styles.foto} />
             <div className={styles.conteudo}>
                 <p>{props.titulo}</p>
