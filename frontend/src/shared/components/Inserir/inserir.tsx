@@ -36,7 +36,7 @@ export const Pesquisar = (props: configInserir) => {
     )
 }
 
-import img from '../../../../public/images/sem-foto.png';
+import img from '../../images/sem-foto.png';
 interface configInserirImg extends HTMLAttributes<HTMLInputElement> {
     receberArquivo: Function
 }
