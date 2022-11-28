@@ -3,7 +3,12 @@
     background-color: #54265C;
     color: white;
     padding: 12px;
-    display: block;
+    display: flex;
+    align-items: center;
+}
+
+.container * {
+    margin: 0;
 }
 
 .logo {
@@ -11,4 +16,12 @@
     padding: 0px;
     font-size: 24px;
     flex: 1;
+}
+
+.menu {
+    display: flex;
+}
+
+.menu * {
+    margin-right: 18px;
 }

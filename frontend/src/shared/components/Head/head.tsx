@@ -1,9 +1,45 @@
+import { useState } from 'react';
+import { redirect, useNavigate } from 'react-router-dom';
 import styles from './Head.module.scss';
+import { HPage } from './HeaderPages/HPage/hPage';
+
+interface Props {
+    selecionado: number,
+}
 
 export const Head = () => {
+
+    const pages = [
+        {nome: 'Home', url: ''},
+        {nome: 'Clientes', url: '/clientes'},
+        {nome: 'Produtos', url: '/produtos'},
+        {nome: 'Serviços', url: '/servicos'},
+        {nome: 'Relatórios', url: '/menu-relatorio'},
+    ]
+
+    const history = useNavigate();
+
+    const [selecionado, setSelecionado] = useState(0);
+
+    const goTo = (url: string, index: number) => {
+        history(url);
+        setSelecionado(index);
+    }
+
     return(
         <div className={styles.container}>
             <h1 className={styles.logo}>World Beauty</h1>
+            <div className={styles.menu}>
+                {pages.map((page, index) => (
+                    <HPage
+                        key={index}
+                        onClick={() => goTo(page.url, index)}
+                        selected={index === selecionado}
+                    >   
+                        {page.nome}
+                    </HPage>
+                ))}
+            </div>
         </div>
     )
 }

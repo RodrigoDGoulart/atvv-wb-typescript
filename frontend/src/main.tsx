@@ -5,7 +5,6 @@ import { Head } from './shared/components'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Head />
     <Rotas />
   </React.StrictMode>
 )

@@ -1,14 +1,19 @@
-import { HTMLAttributes, ReactComponentElement } from "react"
+import { HTMLAttributes } from "react";
+import classNames from 'classnames';
+import styles from './HPage.module.scss';
+import { Link } from "react-router-dom";
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
-    page: string
+    selected: boolean,
 }
 
 export const HPage = (props: Props) => {
-    
     return (
-        <p>
+        <button className={classNames({
+            [styles.font]: true,
+            [styles.selected]: props.selected
+        })} onClick={props.onClick}>
             {props.children}
-        </p>
+        </button>
     )
 }
