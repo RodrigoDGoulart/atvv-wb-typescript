@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './Head.module.scss';
-import { HPage } from './HeaderPages/HPage/hPage';
+import { HPage } from './HPage/hPage';
 
 interface Props {
     selecionado: number,
