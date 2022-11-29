@@ -1,6 +1,6 @@
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { faCamera, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { HTMLAttributes, useState } from 'react';
+import { Dispatch, HTMLAttributes, SetStateAction, useState } from 'react';
 import styles from './inserir.module.scss';
 
 interface configInserir extends HTMLAttributes<HTMLInputElement> { }
@@ -25,13 +25,15 @@ export const InserirComRotulo = (props: configInserirRotulo) => {
     )
 }
 
-export const Pesquisar = (props: configInserir) => {
+interface configPesquisa extends configInserir {
+    setPesquisa: Dispatch<SetStateAction<string>>
+}
+
+export const Pesquisar = (props: configPesquisa) => {
     return (
         <span className={`${styles.input} ${styles.align}`}>
-            <span className={`material-icons`}>
-                search
-            </span>
-            <input placeholder={props.placeholder} className={styles.pesquisa} />
+            <FontAwesomeIcon icon={faSearch} />
+            <input placeholder={props.placeholder} className={styles.pesquisa} onChange={e => props.setPesquisa(e.target.value)} />
         </span>
     )
 }

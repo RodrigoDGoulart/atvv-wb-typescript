@@ -28,20 +28,30 @@
     border: none;
     color: #C7C7C7;
     font-size: 18px;
+    flex: 1;
 }
 
 .pesquisa:focus {
     outline: none;
 }
 
+.input * {
+    padding: 0px;
+    margin: 0px;
+}
+
 .align {
     display: flex;
-    width: fit-content;
+    width: auto;
     align-items: center;
 }
 
 .align * {
     color: #C7C7C7;
+}
+
+.align *:first-child {
+    margin-right: 12px;
 }
 
 .align input{

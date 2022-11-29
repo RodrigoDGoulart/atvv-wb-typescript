@@ -14,7 +14,6 @@ import RelatorioGenero from "../pages/RelatorioGênero/relatorioGenero";
 import RelatorioRanking from "../pages/RelatorioRanking/relatorioRanking";
 import RelatorioRankingGenero from "../pages/RelatorioRankingGenero/relatorioRankingGenero";
 import Servicos from "../pages/Servicos/servicos";
-import { Head } from "../shared/components";
 
 export default function Rotas () {
     return(

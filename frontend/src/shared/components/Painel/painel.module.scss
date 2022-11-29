@@ -2,6 +2,17 @@
     background-color: #F2F2F2;
     padding: 10px 12px 10px 12px;
     border-radius: 20px;
+
+    margin-bottom: 12px;
+
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.fundo:hover {
+    cursor: pointer;
+    background-color: #e2e2e2;
 }
 
 .fundoRanking {
@@ -34,7 +45,7 @@
     margin-right: 12px;
 
     background-position: center;
-    background-size: 100%;
+    background-size: cover;
 }
 
 .conteudo {
