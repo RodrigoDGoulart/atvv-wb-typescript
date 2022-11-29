@@ -3,17 +3,13 @@ import styles from './btn.module.scss';
 
 interface propsPainelBtn extends HtmlHTMLAttributes<HTMLButtonElement> {
     imagem: string,
-    tamanho: 'lg' | 'md',
 }
 
 export const PainelBtn = (props: propsPainelBtn) => {
-    let sobreposicao = styles.corSobreposicao;
-    let fundo = styles.fundo;
-    let tamanho = styles[props.tamanho];
 
     return (
         <>
-            <button style={{ backgroundImage: `url(${props.imagem})` }} className={`${fundo} ${tamanho}`} onClick={props.onClick}>
+            <button style={{ backgroundImage: `url(${props.imagem})` }} className={styles.fundo} onClick={props.onClick}>
                 {props.children}
             </button>
         </>

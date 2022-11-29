@@ -1,6 +1,6 @@
 .fundo {
     background-position: center;
-    background-size: 800px;
+    background-size: cover;
     border: none;
 
     display: flex;
@@ -10,25 +10,18 @@
     color: white;
     font-weight: bold;
     transition: all 0.5s;
+
+    border-radius: 10px;
+    min-width: 450px;
+    max-width: 800px;
+    width: 80%;
+    height: 200px;
+    font-size: 24px;
 }
 
 .fundo:hover{
     cursor: pointer;
-    background-size: 950px;
-}
-
-.lg {
-    border-radius: 15px;
-    height: 215px;
-    width: 676px;
-    font-size: 32px;
-}
-
-.md {
-    border-radius: 10px;
-    width: 450px;
-    height: 150px;
-    font-size: 24px;
+    font-size: 36px;
 }
 
 .btn {

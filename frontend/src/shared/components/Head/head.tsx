@@ -7,10 +7,10 @@ interface Props {
     selecionado: number,
 }
 
-export const Head = () => {
+export const Head = ({selecionado}: Props) => {
 
     const pages = [
-        {nome: 'Home', url: ''},
+        {nome: 'Home', url: '/'},
         {nome: 'Clientes', url: '/clientes'},
         {nome: 'Produtos', url: '/produtos'},
         {nome: 'Serviços', url: '/servicos'},
@@ -19,13 +19,6 @@ export const Head = () => {
 
     const history = useNavigate();
 
-    const [selecionado, setSelecionado] = useState(0);
-
-    const goTo = (url: string, index: number) => {
-        history(url);
-        setSelecionado(index);
-    }
-
     return(
         <div className={styles.container}>
             <h1 className={styles.logo}>World Beauty</h1>
@@ -33,7 +26,7 @@ export const Head = () => {
                 {pages.map((page, index) => (
                     <HPage
                         key={index}
-                        onClick={() => goTo(page.url, index)}
+                        onClick={() => history(page.url)}
                         selected={index === selecionado}
                     >   
                         {page.nome}

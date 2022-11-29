@@ -19,7 +19,6 @@ import { Head } from "../shared/components";
 export default function Rotas () {
     return(
         <BrowserRouter>
-            <Head />
             <Routes>
                 <Route path='/' element={<Home/>} />
 
