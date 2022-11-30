@@ -1,12 +1,12 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ConfirmBtn, Head, Header2, PainelItem, Pesquisar } from "../../shared/components";
-import styles from './Clientes.module.scss';
-
-import fotoCliente from '../../shared/images/clientes.jpg';
 import { useState } from "react";
-import ListaClientes from "../../shared/components/ListaClientes/listaClientes";
 import { useNavigate } from "react-router-dom";
+
+import { ConfirmBtn, Head, Header2, Pesquisar } from "../../shared/components";
+import ListaClientes from "../../shared/components/ListaClientes/listaClientes";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import styles from './Clientes.module.scss';
 
 export default function Clientes() {
 

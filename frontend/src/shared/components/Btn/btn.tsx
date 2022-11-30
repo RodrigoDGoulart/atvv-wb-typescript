@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { HTMLAttributes, HtmlHTMLAttributes } from "react"
 import styles from './btn.module.scss';
 
@@ -20,7 +21,11 @@ interface configBtn extends HTMLAttributes<HTMLButtonElement> { }
 
 export const ConfirmBtn = (props: configBtn) => {
     return (
-        <span className={`${styles.btn} ${styles.confirm}`} onClick={props.onClick}>
+        <span className={classNames({
+            [styles.btn]: true,
+            [styles.confirm]: true,
+            [props.className]: true
+        })} onClick={props.onClick}>
             {props.children}
         </span>
     )
@@ -28,7 +33,11 @@ export const ConfirmBtn = (props: configBtn) => {
 
 export const CancelBtn = (props: configBtn) => {
     return (
-        <span className={`${styles.btn} ${styles.cancel}`} onClick={props.onClick}>
+        <span className={classNames({
+            [styles.btn]: true,
+            [styles.cancel]: true,
+            [props.className]: true
+        })} onClick={props.onClick}>
             {props.children}
         </span>
     )

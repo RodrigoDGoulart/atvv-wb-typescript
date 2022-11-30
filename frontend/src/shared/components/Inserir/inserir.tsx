@@ -1,14 +1,20 @@
 import { faCamera, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dispatch, HTMLAttributes, SetStateAction, useState } from 'react';
+
+import classNames from 'classnames';
 import styles from './inserir.module.scss';
 
-interface configInserir extends HTMLAttributes<HTMLInputElement> { }
+interface configInserir extends HTMLAttributes<HTMLInputElement> {
+    tipo?: undefined | 'text' | 'number' | 'date';
+    receber?: React.Dispatch<React.SetStateAction<string>>;
+    value?: string
+ }
 
 export const Inserir = (props: configInserir) => {
 
     return (
-        <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={props.onChange} />
+        <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={props.tipo ? props.tipo : 'text'} value={props.value}/>
     )
 }
 
@@ -18,9 +24,12 @@ interface configInserirRotulo extends configInserir {
 
 export const InserirComRotulo = (props: configInserirRotulo) => {
     return (
-        <label>
+        <label className={classNames({
+            [styles.label]: true,
+            [props.className]: true
+        })}>
             <h5 className={styles.rotulo}>{props.rotulo}</h5>
-            <Inserir placeholder={props.placeholder} onChange={props.onChange} />
+            <Inserir placeholder={props.placeholder} receber={props.receber} tipo={props.tipo} value={props.value} />
         </label>
     )
 }
@@ -40,7 +49,8 @@ export const Pesquisar = (props: configPesquisa) => {
 
 import img from '../../images/sem-foto.png';
 interface configInserirImg extends HTMLAttributes<HTMLInputElement> {
-    receberArquivo: Function
+    receberArquivo: Function,
+    tamanho?: 'md' | 'lg'
 }
 
 export const InserirImagem = (props: configInserirImg) => {
@@ -56,7 +66,7 @@ export const InserirImagem = (props: configInserirImg) => {
 
     return (
         <>
-        <div className={styles.img} style={{
+        <div className={`${styles.img} ${props.className}`} style={{
             backgroundImage: `url(${imagem})`
         }}>
             <label className={styles.addImgBtn}>

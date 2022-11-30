@@ -25,7 +25,7 @@
 }
 
 .btn {
-    padding: 6px 6px 6px 10px;
+    padding: 6px 6px 6px 6px;
     font-size: 24px;
     border-radius: 10px;
     display: flex;
@@ -33,6 +33,7 @@
     justify-content: center;
     transition: all 0.2s;
 }
+
 
 .btn:hover {
     cursor: pointer;
