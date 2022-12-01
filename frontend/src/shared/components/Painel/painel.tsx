@@ -1,15 +1,24 @@
+import classNames from "classnames";
 import { HTMLAttributes } from "react"
 import styles from './painel.module.scss';
 
 interface configPainelItem extends HTMLAttributes<HTMLButtonElement> {
     titulo: string,
     subtitulo: string,
-    imagem: string
+    imagem: string,
+    clickable?: boolean
 }
 
 export const PainelItem = (props: configPainelItem) => {
+
+    let clickable = props.clickable === undefined ? true : props.clickable;
+
     return (
-        <button className={`${styles.fundo} ${styles.container}`} onClick={props.onClick}>
+        <button className={classNames({
+            [styles.fundo]: true,
+            [styles.container]: true,
+            [styles.clickable]: clickable
+        })} onClick={props.onClick}>
             <div style={{
                 backgroundImage: `url(${props.imagem})`
             }} className={styles.foto} />
@@ -55,36 +64,17 @@ export const PainelRankingItem = (props: configPainelRaking) => {
     )
 }
 
-interface configPainelBtn extends configPainelItem {
+interface configPainelPS extends configPainelItem {
     onEdit: Function,
     onDelete: Function
 }
 
-export const PainelItemBtn = (props: configPainelBtn) => {
+export const PainelPS = (props: configPainelPS) => {
     return (
-        <div className={`${styles.fundo} ${styles.container}`}>
-            <div style={{
-                backgroundImage: `url(${props.imagem})`
-            }} className={styles.foto} />
-            <div className={styles.conteudo}>
-                <p>{props.titulo}</p>
-                <p>{props.subtitulo}</p>
-            </div>
-            <div className={styles.buttons}>
-                <span className={`material-icons ${styles.edit}`} onClick={e => props.onEdit()}>
-                    edit
-                </span>
-                <span className={`material-icons ${styles.delete}`} onClick={e => props.onDelete()}>
-                    delete
-                </span>
-            </div>
-        </div>
-    )
-}
-
-export const PainelItemBtnTeste = (props: configPainelBtn) => {
-    return (
-        <div className={`${styles.fundo} ${styles.container}`}>
+        <div className={classNames({
+            [styles.fundo]: true,
+            [styles.container]: true,
+        })}>
             <div style={{
                 backgroundImage: `url(${props.imagem})`
             }} className={styles.foto} />
