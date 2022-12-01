@@ -8,13 +8,23 @@ import styles from './inserir.module.scss';
 interface configInserir extends HTMLAttributes<HTMLInputElement> {
     tipo?: undefined | 'text' | 'number' | 'date';
     receber?: React.Dispatch<React.SetStateAction<string>>;
-    value?: string
+    value?: string;
+    editable?: boolean
  }
 
 export const Inserir = (props: configInserir) => {
 
+    let editavel: boolean;
+    props.editable === undefined ? editavel = true : editavel = props.editable
+
     return (
-        <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={props.tipo ? props.tipo : 'text'} value={props.value}/>
+        <>
+            {editavel ? 
+                <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={props.tipo ? props.tipo : 'text'} value={props.value}/>
+                :
+                <p className={styles.ineditavel}>{props.value}</p>
+            }
+        </>
     )
 }
 
@@ -29,7 +39,7 @@ export const InserirComRotulo = (props: configInserirRotulo) => {
             [props.className]: true
         })}>
             <h5 className={styles.rotulo}>{props.rotulo}</h5>
-            <Inserir placeholder={props.placeholder} receber={props.receber} tipo={props.tipo} value={props.value} />
+            <Inserir editable={props.editable} placeholder={props.placeholder} receber={props.receber} tipo={props.tipo} value={props.value} />
         </label>
     )
 }
@@ -49,13 +59,18 @@ export const Pesquisar = (props: configPesquisa) => {
 
 import img from '../../images/sem-foto.png';
 interface configInserirImg extends HTMLAttributes<HTMLInputElement> {
-    receberArquivo: Function,
-    tamanho?: 'md' | 'lg'
+    receberArquivo?: Function,
+    tamanho?: 'md' | 'lg',
+    editable?: boolean,
+    value?: string
 }
 
 export const InserirImagem = (props: configInserirImg) => {
 
     const [imagem, setImagem] = useState(img);
+
+    let editavel: boolean;
+    props.editable === undefined ? editavel = true : editavel = false
 
     const trocarImg = (img) => {
         if(img){
@@ -67,9 +82,12 @@ export const InserirImagem = (props: configInserirImg) => {
     return (
         <>
         <div className={`${styles.img} ${props.className}`} style={{
-            backgroundImage: `url(${imagem})`
+            backgroundImage: `url(${props.value ? props.value : imagem})`
         }}>
-            <label className={styles.addImgBtn}>
+            <label className={classNames({
+                [styles.addImgBtn]: true,
+                [styles.invisible]: !editavel
+            })}>
                 <FontAwesomeIcon icon={faCamera} />
                 <input type='file' accept="image/png, image/jpeg" name="upload" className={styles.addImgInput} onChange={e => trocarImg(e.target.files[0])}></input>
             </label>

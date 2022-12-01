@@ -1,9 +1,8 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CancelBtn, ConfirmBtn, Head, Header2, InserirComRotulo, InserirImagem } from "../../shared/components";
-import { Item } from "../../shared/components/Lista/Item/item";
 import { Lista } from "../../shared/components/Lista/lista";
 import { Opcoes } from "../../shared/components/Opcoes/opcoes";
 

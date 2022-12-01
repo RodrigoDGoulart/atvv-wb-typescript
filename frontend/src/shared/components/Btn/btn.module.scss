@@ -34,7 +34,6 @@
     transition: all 0.2s;
 }
 
-
 .btn:hover {
     cursor: pointer;
 }
@@ -55,6 +54,15 @@
 
 .cancel:hover {
     background-color: #f3c4c4;
+}
+
+.blue {
+    color: #000467;
+    background-color: #9FA3FF;
+}
+
+.blue:hover {
+    background-color: #c3c4fc;
 }
 
 .selectContainer {

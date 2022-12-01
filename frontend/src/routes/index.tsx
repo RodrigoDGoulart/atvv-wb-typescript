@@ -9,6 +9,7 @@ import NovoCliente from "../pages/NovoCliente/novoCliente";
 import NovoConsumoCliente from "../pages/NovoConsumoCliente/novoConsumoCliente";
 import NovoProduto from "../pages/NovoProduto/novoProduto";
 import NovoServico from "../pages/NovoServico/novoServico";
+import PerfilCliente from "../pages/PerfilCliente/perfilCliente";
 import Produtos from "../pages/Produtos/produtos";
 import RelatorioGenero from "../pages/RelatorioGênero/relatorioGenero";
 import RelatorioRanking from "../pages/RelatorioRanking/relatorioRanking";
@@ -22,7 +23,7 @@ export default function Rotas () {
                 <Route path='/' element={<Home/>} />
 
                 <Route path='/clientes' element={<Clientes/>} />
-                <Route path='/cliente/:id' element={<Home/>} />
+                <Route path='/cliente/:id' element={<PerfilCliente />} />
                 <Route path='/novo-cliente' element={<NovoCliente/>} />
                 <Route path='/editar-cliente/:id' element={<EditarCliente/>} />
                 <Route path='/consumo-cliente/:id' element={<ConsumoCliente/>} />

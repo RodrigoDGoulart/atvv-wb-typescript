@@ -43,6 +43,18 @@ export const CancelBtn = (props: configBtn) => {
     )
 }
 
+export const BlueBtn = (props: configBtn) => {
+    return (
+        <span className={classNames({
+            [styles.btn]: true,
+            [styles.blue]: true,
+            [props.className]: true
+        })} onClick={props.onClick}>
+            {props.children}
+        </span>
+    )
+}
+
 interface selectBtn extends HTMLAttributes<HTMLButtonElement> {
     status: 'enable' | 'disable'
 }

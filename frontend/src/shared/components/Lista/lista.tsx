@@ -3,7 +3,8 @@ import { Item } from "./Item/item";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   lista: string[];
-  setFunction: React.Dispatch<React.SetStateAction<string[]>>
+  setFunction?: React.Dispatch<React.SetStateAction<string[]>>;
+  editable?: boolean
 }
 
 export const Lista = (props: Props) => {
@@ -11,6 +12,8 @@ export const Lista = (props: Props) => {
   const [list, setList] = useState(props.lista);
   const [toDel, setToDel] = useState<number>(NaN)
   
+  let editable = (props.editable === undefined) ? true : props.editable;
+
   const del = (index: number) => {
     let novaLista = [...list];
     novaLista.splice(index, 1);
@@ -32,7 +35,7 @@ export const Lista = (props: Props) => {
   return (
     <div className={props.className}>
       {list.map((item, index) => (
-        <Item key={index} onClick={() => setToDel(index)}>{item}</Item>
+        <Item editable={editable} key={index} onClick={() => setToDel(index)}>{item}</Item>
       ))}
     </div>
   );

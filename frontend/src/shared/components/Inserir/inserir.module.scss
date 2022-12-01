@@ -32,6 +32,13 @@
     font-weight: normal;
 }
 
+.ineditavel {
+    color: #6A6A6A;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+
 .pesquisa {
     background-color: transparent;
     border: none;
@@ -102,4 +109,8 @@
     justify-content: end;
     background-size: cover;
     background-position: center;
+}
+
+.invisible {
+    display: none;
 }
