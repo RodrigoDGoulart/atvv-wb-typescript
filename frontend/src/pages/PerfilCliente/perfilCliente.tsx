@@ -68,7 +68,7 @@ export default function PerfilCliente() {
         </div>
         <div className={styles.btns}>
           <span></span>
-          <BlueBtn className={styles.btnFS} onClick={() => voltar()}>Consumo de {cliente.nome}</BlueBtn>
+          <BlueBtn className={styles.btnFS} onClick={() => history(`/consumo-cliente/${id}`)}>Consumo de {cliente.nome}</BlueBtn>
         </div>
     </>
   )
