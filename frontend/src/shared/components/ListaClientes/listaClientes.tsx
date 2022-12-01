@@ -3,6 +3,7 @@ import styles from './ListaCliente.module.scss';
 import fotoCliente from '../../images/clientes.jpg';
 import { PainelItem } from '../Painel/painel';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface configLista {
   busca: string
@@ -25,6 +26,8 @@ export default function ListaClientes(props: configLista) {
 
   const [lista, setLista] = useState(clientes);
 
+  const history = useNavigate();
+
   const testaBusca = (nome: string) => {
     const regex = new RegExp(props.busca, 'i');
     return regex.test(nome);
@@ -40,7 +43,7 @@ export default function ListaClientes(props: configLista) {
   return (
     <div className={styles.container}>
       {lista.map((cliente, index) => (
-        <PainelItem key={index} titulo={cliente.nome} subtitulo={`Cadastrado(a) em ${cliente.cadastro}`} imagem={cliente.foto} onClick={() => console.log('foi')} />
+        <PainelItem key={index} titulo={cliente.nome} subtitulo={`Cadastrado(a) em ${cliente.cadastro}`} imagem={cliente.foto} onClick={() => history(`/cliente/${index}`)} />
       ))}
     </div>
   )

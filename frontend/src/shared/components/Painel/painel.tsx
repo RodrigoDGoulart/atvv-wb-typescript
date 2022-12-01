@@ -9,7 +9,7 @@ interface configPainelItem extends HTMLAttributes<HTMLButtonElement> {
 
 export const PainelItem = (props: configPainelItem) => {
     return (
-        <button className={`${styles.fundo} ${styles.container}`}>
+        <button className={`${styles.fundo} ${styles.container}`} onClick={props.onClick}>
             <div style={{
                 backgroundImage: `url(${props.imagem})`
             }} className={styles.foto} />
