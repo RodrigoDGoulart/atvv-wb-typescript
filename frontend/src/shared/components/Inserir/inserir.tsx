@@ -7,7 +7,7 @@ import styles from './inserir.module.scss';
 
 interface configInserir extends HTMLAttributes<HTMLInputElement> {
     tipo?: undefined | 'text' | 'number' | 'date';
-    receber?: React.Dispatch<React.SetStateAction<string>>;
+    receber?: React.Dispatch<React.SetStateAction<any>>;
     value?: string;
     editable?: boolean
  }
@@ -15,12 +15,17 @@ interface configInserir extends HTMLAttributes<HTMLInputElement> {
 export const Inserir = (props: configInserir) => {
 
     let editavel: boolean;
-    props.editable === undefined ? editavel = true : editavel = props.editable
+    props.editable === undefined ? editavel = true : editavel = props.editable;
 
+    let tipo = props.tipo === undefined ? 'text' : props.tipo
+ 
     return (
         <>
             {editavel ? 
-                <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={props.tipo ? props.tipo : 'text'} value={props.value}/>
+                tipo === 'number' ?
+                    <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={tipo} min={0.01} value={props.value}/>
+                    :
+                    <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={tipo} value={props.value}/>
                 :
                 <p className={styles.ineditavel}>{props.value}</p>
             }
