@@ -4,6 +4,7 @@ import foto from '../../images/produtos.jpg';
 import { PainelItem, PainelPS } from '../Painel/painel';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Confirmar } from '../Confirmar/confirmar';
 
 interface configLista {
   busca: string;
@@ -49,6 +50,8 @@ export default function ListaClientes(props: configLista) {
   
   const [lista, setLista] = useState(itens);
   const [selecionado, setSelecionado] = useState(Object);
+
+  const [confirm, setConfirm] = useState(false);
   
   const history = useNavigate();
 
@@ -59,10 +62,16 @@ export default function ListaClientes(props: configLista) {
 
   const deletar = (cod: number) => {
     console.log(`deletando ${cod}`);
+    setConfirm(false)
   }
 
   const editar = (cod: number) => {
     history(`/editar-produto/${cod}`)
+  }
+
+  const chamarModal = (item: Object) => {
+    setSelecionado(item)
+    setConfirm(true);
   }
 
   const selecionar = (item: Object) => {
@@ -81,8 +90,15 @@ export default function ListaClientes(props: configLista) {
   return (
     <div className={styles.container}>
       {lista.map(item => (
-        <PainelPS select={select} selected={selecionado['cod'] === item['cod']} aoSelecionar={() => selecionar(item)} key={item.cod} titulo={item.nome} subtitulo={`Cod.: ${item.cod}  -  R$${item.valor}`} imagem={item.foto} onEdit={() => editar(item.cod)} onDelete={() => deletar(item.cod)} />
+        <PainelPS select={select} selected={selecionado['cod'] === item['cod']} aoSelecionar={() => selecionar(item)} key={item.cod} titulo={item.nome} subtitulo={`Cod.: ${item.cod}  -  R$${item.valor}`} imagem={item.foto} onEdit={() => editar(item.cod)} onDelete={() => chamarModal(item)} />
       ))}
+      <Confirmar
+        ativo={confirm}
+        onConfirm={() => deletar(selecionado['cod'])}
+        closeReturn={setConfirm}
+      >
+        <p className={styles.confirmMsg}>Excluir {selecionado['nome']}?</p>
+      </Confirmar>
     </div>
   )
 }
