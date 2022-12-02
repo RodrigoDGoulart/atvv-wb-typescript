@@ -60,7 +60,7 @@ export const PainelRankingItem = (props: configPainelRaking) => {
             }}>
                 {props.ranking}°
             </div>
-            <PainelItem imagem={props.imagem} titulo={props.titulo} subtitulo={props.subtitulo} />
+            <PainelItem clickable={false} imagem={props.imagem} titulo={props.titulo} subtitulo={props.subtitulo} />
         </div>
     )
 }
