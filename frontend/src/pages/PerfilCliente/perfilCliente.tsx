@@ -64,7 +64,7 @@ export default function PerfilCliente() {
       </div>
         <div className={styles.btns}>
           <CancelBtn className={styles.btn} onClick={() => voltar()}>Deletar {cliente.nome}</CancelBtn>
-          <ConfirmBtn className={styles.btn} onClick={() => console.log()}>Editar {cliente.nome}</ConfirmBtn>
+          <ConfirmBtn className={styles.btn} onClick={() => history(`/editar-cliente/${id}`)}>Editar {cliente.nome}</ConfirmBtn>
         </div>
         <div className={styles.btns}>
           <span></span>

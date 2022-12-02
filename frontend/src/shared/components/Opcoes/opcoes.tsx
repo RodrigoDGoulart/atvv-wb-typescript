@@ -6,12 +6,14 @@ import styles from './Opcoes.module.scss';
 interface Props {
     lista: string[],
     onChange: React.Dispatch<React.SetStateAction<string>>,
-    rotulo: string
+    rotulo: string,
+    value?: string
 }
 
 export const Opcoes = (props: Props) => {
 
-    const [selecionado, setSelecionado] = useState('');
+    let value = props.value === undefined ? '' : props.value
+    const [selecionado, setSelecionado] = useState(value);
 
     return(
         <>

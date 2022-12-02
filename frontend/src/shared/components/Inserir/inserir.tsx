@@ -1,6 +1,6 @@
 import { faCamera, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dispatch, HTMLAttributes, SetStateAction, useState } from 'react';
+import { Dispatch, HTMLAttributes, SetStateAction, useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 import styles from './inserir.module.scss';
@@ -25,7 +25,7 @@ export const Inserir = (props: configInserir) => {
                 tipo === 'number' ?
                     <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={tipo} min={minimo} value={props.value}/>
                     :
-                    <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={tipo} value={props.value}/>
+                    <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={tipo} defaultValue={props.value}/>
                 :
                 <p className={styles.ineditavel}>{props.value}</p>
             }
@@ -72,7 +72,8 @@ interface configInserirImg extends HTMLAttributes<HTMLInputElement> {
 
 export const InserirImagem = (props: configInserirImg) => {
 
-    const [imagem, setImagem] = useState(img);
+    let foto = props.value === undefined ? img : props.value;
+    const [imagem, setImagem] = useState(foto);
 
     let editavel: boolean;
     props.editable === undefined ? editavel = true : editavel = false
@@ -83,11 +84,11 @@ export const InserirImagem = (props: configInserirImg) => {
             setImagem(URL.createObjectURL(img));
         }
     }
-
+    
     return (
         <>
         <div className={`${styles.img} ${props.className}`} style={{
-            backgroundImage: `url(${props.value ? props.value : imagem})`
+            backgroundImage: `url(${imagem})`
         }}>
             <label className={classNames({
                 [styles.addImgBtn]: true,

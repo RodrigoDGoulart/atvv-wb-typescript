@@ -3,7 +3,7 @@ import { Item } from "./Item/item";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   lista: string[];
-  setFunction?: React.Dispatch<React.SetStateAction<string[]>>;
+  setFunction?: React.Dispatch<React.SetStateAction<Object[]>>;
   editable?: boolean
 }
 
