@@ -8,12 +8,17 @@ import { useNavigate } from 'react-router-dom';
 interface configLista {
   busca: string;
   tipo: 'produto' | 'servico';
+  select?: boolean;
+  PsSelecionado?: Function;
 }
 
 export default function ListaClientes(props: configLista) {
 
+  
   let itens = []
-
+  
+  let select = props.select === undefined ? false : props.select;
+  
   if (props.tipo === 'produto') {
     // puxar lista produto
     itens = [{
@@ -41,9 +46,10 @@ export default function ListaClientes(props: configLista) {
       cod: '666'
     }]
   }
-
+  
   const [lista, setLista] = useState(itens);
-
+  const [selecionado, setSelecionado] = useState(Object);
+  
   const history = useNavigate();
 
   const testaBusca = (nome: string) => {
@@ -59,17 +65,23 @@ export default function ListaClientes(props: configLista) {
     console.log(`editando ${cod}`);
   }
 
+  const selecionar = (item: Object) => {
+    setSelecionado(item);
+    props.PsSelecionado(item);
+  }
+
   useEffect(() => {
     const novaLista = itens.filter(item => {
       return testaBusca(item.nome)
     });
     setLista(novaLista);
-  }, [props.busca])
+    setSelecionado({cod: NaN})
+  }, [props.busca, props.tipo])
 
   return (
     <div className={styles.container}>
       {lista.map(item => (
-        <PainelPS key={item.cod} titulo={item.nome} subtitulo={`Cod.: ${item.cod}  -  R$${item.valor}`} imagem={item.foto} onEdit={() => editar(item.cod)} onDelete={() => deletar(item.cod)} />
+        <PainelPS select={select} selected={selecionado['cod'] === item['cod']} aoSelecionar={() => selecionar(item)} key={item.cod} titulo={item.nome} subtitulo={`Cod.: ${item.cod}  -  R$${item.valor}`} imagem={item.foto} onEdit={() => editar(item.cod)} onDelete={() => deletar(item.cod)} />
       ))}
     </div>
   )

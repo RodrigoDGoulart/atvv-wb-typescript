@@ -68,7 +68,7 @@ export default function ConsumoCliente() {
         </div>
         <div className={styles.container}>
           <div className={styles.div}>
-            <ConfirmBtn onClick={() => history('/novo-produto')}>
+            <ConfirmBtn onClick={() => history(`/add-consumo/${id}`)}>
               <FontAwesomeIcon icon={faPlus} className={styles.addIcon} />
               Novo consumo
             </ConfirmBtn>

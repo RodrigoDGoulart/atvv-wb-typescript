@@ -9,21 +9,21 @@ interface configInserir extends HTMLAttributes<HTMLInputElement> {
     tipo?: undefined | 'text' | 'number' | 'date';
     receber?: React.Dispatch<React.SetStateAction<any>>;
     value?: string;
-    editable?: boolean
+    editable?: boolean;
+    min?:number;
  }
 
 export const Inserir = (props: configInserir) => {
 
-    let editavel: boolean;
-    props.editable === undefined ? editavel = true : editavel = props.editable;
-
+    let editavel = props.editable === undefined ? true : props.editable;
+    let minimo = props.min === undefined ? 0.01 : props.min;
     let tipo = props.tipo === undefined ? 'text' : props.tipo
  
     return (
         <>
             {editavel ? 
                 tipo === 'number' ?
-                    <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={tipo} min={0.01} value={props.value}/>
+                    <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={tipo} min={minimo} value={props.value}/>
                     :
                     <input className={`${styles.input} ${styles.lg}`} placeholder={props.placeholder} onChange={(e) => props.receber(e.target.value)} type={tipo} value={props.value}/>
                 :
@@ -44,7 +44,7 @@ export const InserirComRotulo = (props: configInserirRotulo) => {
             [props.className]: true
         })}>
             <h5 className={styles.rotulo}>{props.rotulo}</h5>
-            <Inserir editable={props.editable} placeholder={props.placeholder} receber={props.receber} tipo={props.tipo} value={props.value} />
+            <Inserir min={props.min} editable={props.editable} placeholder={props.placeholder} receber={props.receber} tipo={props.tipo} value={props.value} />
         </label>
     )
 }

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Opcao } from "./Opcao/opcao";
+import { Opcao } from "../Opcao/opcao";
 
 import styles from './Opcoes.module.scss';
 

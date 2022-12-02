@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { HTMLAttributes } from "react"
+import { Opcao } from "../Opcao/opcao";
 import styles from './painel.module.scss';
 
 interface configPainelItem extends HTMLAttributes<HTMLButtonElement> {
@@ -65,11 +66,17 @@ export const PainelRankingItem = (props: configPainelRaking) => {
 }
 
 interface configPainelPS extends configPainelItem {
-    onEdit: Function,
-    onDelete: Function
+    onEdit?: Function;
+    onDelete?: Function;
+    aoSelecionar?: Function;
+    selected?: boolean;
+    select?: boolean;
 }
 
 export const PainelPS = (props: configPainelPS) => {
+
+    let select = props.select === undefined ? false : props.select
+
     return (
         <div className={classNames({
             [styles.fundo]: true,
@@ -83,12 +90,18 @@ export const PainelPS = (props: configPainelPS) => {
                 <p>{props.subtitulo}</p>
             </div>
             <div className={styles.buttons}>
-                <span className={`material-icons ${styles.edit}`} onClick={e => props.onEdit()}>
-                    edit
-                </span>
-                <span className={`material-icons ${styles.delete}`} onClick={e => props.onDelete()}>
-                    delete
-                </span>
+                {select ?
+                <Opcao selecionado={props.selected} click={() => props.aoSelecionar()} />
+                :
+                <>
+                    <span className={`material-icons ${styles.edit}`} onClick={e => props.onEdit()}>
+                        edit
+                    </span>
+                    <span className={`material-icons ${styles.delete}`} onClick={e => props.onDelete()}>
+                        delete
+                    </span>
+                </>
+                }
             </div>
         </div>
     )
