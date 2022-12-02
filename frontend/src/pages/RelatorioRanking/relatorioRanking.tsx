@@ -17,10 +17,12 @@ export default function RelatorioRanking() {
     '10 Clientes que mais consumiram produtos/serviços',
     '',
     'Serviços e produtos mais consumidos',
-    '',
+    'Serviços e produtos mais consumidos por gênero',
     '10 clientes que menos consumiram produtos/serviços',
     '5 clientes que mais consumiram em valor'
   ]
+
+  let searchPlaceholder = aba == 0 ? 'Pesquisar produto...' : 'Pesquisar serviço...'
 
   return (
     <>
@@ -28,7 +30,7 @@ export default function RelatorioRanking() {
       <Header2>{titulos[Number(id) - 1]}</Header2>
       <div className={styles.container}>
         <div className={styles.div2}>
-          <Pesquisar placeholder="Pesquisar cliente..." setPesquisa={setBusca} />
+          <Pesquisar placeholder={searchPlaceholder} setPesquisa={setBusca} />
           {(Number(id) !== 6) &&<Abas className={styles.aba} abas={['Produtos', 'Serviços']} clique={(n: number) => setAba(n)}/>}
         </div>
         <div>
