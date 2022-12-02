@@ -3,6 +3,8 @@ import { BlueBtn, CancelBtn, ConfirmBtn, Head, Header2, InserirComRotulo, Inseri
 import { Lista } from "../../shared/components/Lista/lista";
 import styles from './PerfilCliente.module.scss';
 import foto from '../../shared/images/clientes.jpg';
+import { useState } from "react";
+import { Confirmar } from "../../shared/components/Confirmar/confirmar";
 
 export default function PerfilCliente() {
 
@@ -26,10 +28,23 @@ export default function PerfilCliente() {
     telefones: ['123456', '123123123']
   }
 
+  const [confirm, setConfirm] = useState(false);
+
   const voltar = () => {
     history('/clientes')
   }
-  
+
+  const deletar = (id: string) => {
+    console.log(`deletando ${id}`);
+    setConfirm(false);
+    voltar();
+  }
+
+  const chamarModal = () => {
+    setConfirm(true);
+  }
+
+
   return (
     <>
       <Head selecionado={1} />
@@ -62,14 +77,21 @@ export default function PerfilCliente() {
           </div>
         </div>
       </div>
-        <div className={styles.btns}>
-          <CancelBtn className={styles.btn} onClick={() => voltar()}>Deletar {cliente.nome}</CancelBtn>
-          <ConfirmBtn className={styles.btn} onClick={() => history(`/editar-cliente/${id}`)}>Editar {cliente.nome}</ConfirmBtn>
-        </div>
-        <div className={styles.btns}>
-          <span></span>
-          <BlueBtn className={styles.btnFS} onClick={() => history(`/consumo-cliente/${id}`)}>Consumo de {cliente.nome}</BlueBtn>
-        </div>
+      <div className={styles.btns}>
+        <CancelBtn className={styles.btn} onClick={() => chamarModal()}>Deletar {cliente.nome}</CancelBtn>
+        <ConfirmBtn className={styles.btn} onClick={() => history(`/editar-cliente/${id}`)}>Editar {cliente.nome}</ConfirmBtn>
+      </div>
+      <div className={styles.btns}>
+        <span></span>
+        <BlueBtn className={styles.btnFS} onClick={() => history(`/consumo-cliente/${id}`)}>Consumo de {cliente.nome}</BlueBtn>
+      </div>
+      <Confirmar
+        ativo={confirm}
+        onConfirm={() => deletar(id)}
+        closeReturn={setConfirm}
+      >
+        <p className={styles.confirmMsg}>Excluir {cliente.nome}?</p>
+      </Confirmar>
     </>
   )
 }
