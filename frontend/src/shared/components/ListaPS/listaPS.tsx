@@ -62,7 +62,7 @@ export default function ListaClientes(props: configLista) {
   }
 
   const editar = (cod: number) => {
-    console.log(`editando ${cod}`);
+    history(`/editar-produto/${cod}`)
   }
 
   const selecionar = (item: Object) => {

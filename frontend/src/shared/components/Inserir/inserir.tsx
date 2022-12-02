@@ -8,7 +8,7 @@ import styles from './inserir.module.scss';
 interface configInserir extends HTMLAttributes<HTMLInputElement> {
     tipo?: undefined | 'text' | 'number' | 'date';
     receber?: React.Dispatch<React.SetStateAction<any>>;
-    value?: string;
+    value?: any;
     editable?: boolean;
     min?:number;
  }
