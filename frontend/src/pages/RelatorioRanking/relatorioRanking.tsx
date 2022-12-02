@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { Head, Header2, Pesquisar } from "../../shared/components";
 import styles from './RelatorioRanking.module.scss';
