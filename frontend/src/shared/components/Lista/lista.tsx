@@ -4,38 +4,35 @@ import { Item } from "./Item/item";
 interface Props extends HTMLAttributes<HTMLElement> {
   lista: string[];
   setFunction?: React.Dispatch<React.SetStateAction<Object[]>>;
-  editable?: boolean
+  editable?: boolean;
+  deleteFunction?: Function
 }
 
 export const Lista = (props: Props) => {
 
   const [list, setList] = useState(props.lista);
-  const [toDel, setToDel] = useState<number>(NaN)
   
   let editable = (props.editable === undefined) ? true : props.editable;
 
   const del = (index: number) => {
-    let novaLista = [...list];
-    novaLista.splice(index, 1);
-    setList(novaLista)
-    props.setFunction(novaLista)
+    let lista = [...list]
+    lista.splice(index, 1);
+    setList(lista)
   }
 
   useEffect(() => {
-    if (!Number.isNaN(toDel)) {
-      del(toDel);
-      setToDel(NaN);
+    if(props.setFunction) {
+      props.setFunction(list)
     }
-  }, [toDel]);
+  }, [list]);
 
   useEffect(() => {
     setList(props.lista)
   }, [props.lista]);
-
   return (
     <div className={props.className}>
       {list.map((item, index) => (
-        <Item editable={editable} key={index} onClick={() => setToDel(index)}>{item}</Item>
+        <Item editable={editable} key={index} onClick={() => props.deleteFunction(index)}>{item}</Item>
       ))}
     </div>
   );

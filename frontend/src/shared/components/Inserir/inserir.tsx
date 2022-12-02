@@ -18,7 +18,7 @@ export const Inserir = (props: configInserir) => {
     let editavel = props.editable === undefined ? true : props.editable;
     let minimo = props.min === undefined ? 0.01 : props.min;
     let tipo = props.tipo === undefined ? 'text' : props.tipo
- 
+
     return (
         <>
             {editavel ? 

@@ -4,7 +4,7 @@ import { HTMLAttributes } from 'react';
 import styles from './Opcao.module.scss';
 
 interface Props extends HTMLAttributes<HTMLButtonElement>{
-    selecionado: Boolean,
+    selecionado: boolean,
     click: Function
 }
 

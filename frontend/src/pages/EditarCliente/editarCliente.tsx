@@ -1,6 +1,7 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CancelBtn, ConfirmBtn, Head, Header2, InserirComRotulo, InserirImagem } from "../../shared/components";
 import { Lista } from "../../shared/components/Lista/lista";
@@ -12,47 +13,36 @@ export default function EditarCliente() {
 
   const { id } = useParams();
 
-  const cliente = {
-    foto: foto,
-    nome: 'juriscleide',
-    nomeSocial: 'juriscleide',
-    sexo: 'Feminino',
-    cpf: {
-      valor: '12345678900',
-      data: '12/12/2012'
-    },
-    rgs: [
-      { valor: '12345678900', data: '12/12/2012' },
-      { valor: '1234131231235678900', data: '12/12/2012' }
-    ],
-    telefones: ['123456', '123123123']
-  }
-
-  const tratarData = (data: string) => {
-    let dataArr = data.split('/');
-    let novaData = `${dataArr[2]}-${dataArr[1]}-${dataArr[0]}`
-    
-    return novaData
-    // converte data > string
-    // console.log(novaData.toISOString().substring(0, 10));
-  }
-
   const history = useNavigate();
 
-  const [img, setImg] = useState(cliente.foto);
-  const [sexo, setSexo] = useState(cliente.sexo);
-  const [nome, setNome] = useState(cliente.nome);
-  const [nomeSocial, setNomeSocial] = useState(cliente.nomeSocial);
-
-  const [cpfValor, setCpfValor] = useState(cliente.cpf.valor);
-  const [cpfData, setCpfData] = useState(tratarData(cliente.cpf.data));
-
+  const [img, setImg] = useState(foto);
+  const [sexo, setSexo] = useState('');
+  const [nome, setNome] = useState('');
+  const [nomeSocial, setNomeSocial] = useState('');
+  
+  const [cpfValor, setCpfValor] = useState('');
+  const [cpfData, setCpfData] = useState('');
+  
   const [rgValor, setRgValor] = useState('');
   const [rgData, setRgData] = useState('');
-  const [rgList, setRgList] = useState(cliente.rgs);
-
+  const [rgList, setRgList] = useState([]);
+  
   const [telefone, setTelefone] = useState('');
-  const [telefoneList, setTelefoneList] = useState(cliente.telefones);
+  const [telefoneList, setTelefoneList] = useState([]);
+  
+  const getCliente = () => {
+    axios.get(`http://localhost:4001/cliente?id=${id}`).then(response => {
+      let cliente = response.data;
+      setNome(cliente.nome);
+      setNomeSocial(cliente.nomeSocial);
+      setSexo(convertGenero(cliente.genero));
+      setCpfValor(cliente.cpf.valor);
+      setCpfData(cliente.cpf.data.split('T')[0]);
+      let rgs = cliente.rgs.map(rg => {return {valor: rg.valor, data: rg.data.split('T')[0]}})
+      setRgList(rgs);
+      setTelefoneList(cliente.telefones.map(telefone => telefone.telefone));
+    });
+  }
 
   const [erroSexo, setErroSexo] = useState(false);
   const [erroNome, setErroNome] = useState(false);
@@ -77,26 +67,58 @@ export default function EditarCliente() {
     if (telefoneList.length == 0) { setErroTelefoneList(true); retorno = false; } else { setErroTelefoneList(false) }
     return retorno;
   }
-
+  
   const cadastrar = () => {
     if (verificar()) {
-      console.log({
-        img,
-        sexo,
+      axios.put('http://localhost:4001/editar-cliente', {
+        id,
         nome,
         nomeSocial,
-        cpfValor,
-        cpfData,
-        rgList,
-        telefoneList
-      });
+        genero: generoToSQL(sexo),
+        cpf: {
+          valor: cpfValor,
+          data: cpfData
+        },
+        rgs: rgList,
+        telefones: telefoneList
+      }).then(() => voltar());
+    }
+  }
+  
+  const convertGenero = (genero: string) => {
+    switch (genero) {
+      case 'M':
+        return 'Masculino'
+      case 'F':
+        return 'Feminino'
+      default:
+        return 'Outro'
     }
   }
 
+  const generoToSQL = (genero: string) => {
+    switch(genero) {
+      case 'Masculino':
+        return 'M';
+      case 'Feminino':
+        return 'F';
+      default:
+        return 'O';
+    }
+  }
+
+  const convertDia = (dia: string) => {
+    let data = new Date(dia);
+    return data.toLocaleDateString('pt-br');
+  }
+
+  useEffect(() => {
+    getCliente();
+  }, [])
   return (
     <>
       <Head selecionado={1} />
-      <Header2>Editando {cliente.nome}</Header2>
+      <Header2>Editando {nome}</Header2>
       <div className={styles.container}>
         <div className={styles.fstSection}>
           <InserirImagem receberArquivo={setImg} value={img} className={styles.img} />
@@ -105,7 +127,7 @@ export default function EditarCliente() {
             {erroNome && <p className={styles.erro}>Por favor insira um nome.</p>}
             <InserirComRotulo rotulo="Nome Social:" receber={setNomeSocial} value={nomeSocial} />
             {erroNomeSocial && <p className={styles.erro}>Por favor insira um nome social.</p>}
-            <Opcoes lista={['Masculino', 'Feminino', 'Outros']} onChange={setSexo} rotulo='Sexo:' value={sexo} />
+            <Opcoes lista={['Masculino', 'Feminino', 'Outro']} onChange={setSexo} rotulo='Sexo:' value={sexo} />
             {erroSexo && <p className={styles.erro}>Por favor selecione um sexo.</p>}
           </div>
         </div>
@@ -120,47 +142,51 @@ export default function EditarCliente() {
           </div>
           <Header2>RGs</Header2>
           <div className={styles.containerCampos}>
-            <div className={styles.campos}>
+            <form className={styles.campos}>
               <InserirComRotulo rotulo="Valor (ex.: 12.345.678-9)" placeholder="xx.xxx.xxx-x" className={styles.scndInput} receber={setRgValor} value={rgValor} />
               <InserirComRotulo tipo="date" rotulo="Data de emissão" className={styles.scndInput} receber={setRgData} value={rgData} />
-              <ConfirmBtn className={styles.addBtn} onClick={() => {
+              <ConfirmBtn type="reset" className={styles.addBtn} onClick={() => {
                 if (!rgValor || !rgData) return
                 let lista = [...rgList];
+                console.log(rgData)
                 lista.push({
                   valor: rgValor,
                   data: rgData
                 });
                 setRgList(lista);
-                setRgValor('');
-                setRgData('');
               }}>
                 <FontAwesomeIcon icon={faPlus} />
               </ConfirmBtn>
-            </div>
+            </form>
             {erroRgList && <p className={styles.erro}>Por favor insira ao menos um RG com data de emissão.</p>}
-            <Lista className={styles.lista} lista={rgList.map(item => `${item.valor} - ${item.data}`)} setFunction={setRgList} />
+            <Lista className={styles.lista} lista={rgList.map(item => `${item.valor} - ${convertDia(item.data)}`)} deleteFunction={(index: number) => {
+              let lista = [...rgList]
+              lista.splice(index, 1);
+              setRgList(lista);
+            }} />
           </div>
           <Header2>Telefones</Header2>
           <div className={styles.containerCampos}>
-            <div className={styles.campos}>
+            <form className={styles.campos}>
               <InserirComRotulo rotulo="Telefone" placeholder="+xx (xx) xxxxx-xxxx" className={styles.scndInput} receber={setTelefone} value={telefone} />
-              <ConfirmBtn className={styles.addBtn} onClick={() => {
+              <ConfirmBtn type="reset" className={styles.addBtn} onClick={() => {
                 if (!telefone) return
-                let lista = [...telefoneList];
-                lista.push(telefone);
-                setTelefoneList(lista);
-                setTelefone('');
+                setTelefoneList([...telefoneList, telefone]);
               }}>
                 <FontAwesomeIcon icon={faPlus} />
               </ConfirmBtn>
-            </div>
+            </form>
             {erroTelefoneList && <p className={styles.erro}>Por favor insira ao menos um telefone.</p>}
-            <Lista className={styles.lista} lista={telefoneList} setFunction={setTelefoneList} />
+            <Lista className={styles.lista} lista={telefoneList} deleteFunction={(index: number) => {
+              let lista = [...telefoneList]
+              lista.splice(index, 1);
+              setTelefoneList(lista);
+            }} />
           </div>
         </div>
         <div className={styles.btns}>
           <CancelBtn className={styles.btn} onClick={() => voltar()}>Cancelar edição</CancelBtn>
-          <ConfirmBtn className={styles.btn} onClick={() => cadastrar()}>Editar {cliente.nome}</ConfirmBtn>
+          <ConfirmBtn className={styles.btn} onClick={() => cadastrar()}>Editar {nome}</ConfirmBtn>
         </div>
       </div>
     </>

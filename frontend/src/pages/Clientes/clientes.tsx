@@ -20,7 +20,7 @@ export default function Clientes() {
       <Header2>Clientes</Header2>
       <div className={styles.container}>
         <div className={styles.div}>
-          <ConfirmBtn onClick={() => history('/novo-cliente')}>
+          <ConfirmBtn className={styles.btn} onClick={() => history('/novo-cliente')}>
             <FontAwesomeIcon icon={faPlus} className={styles.addIcon} />
             Novo cliente
           </ConfirmBtn>

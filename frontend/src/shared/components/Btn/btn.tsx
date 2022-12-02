@@ -17,17 +17,21 @@ export const PainelBtn = (props: propsPainelBtn) => {
     )
 }
 
-interface configBtn extends HTMLAttributes<HTMLButtonElement> { }
+interface configBtn extends HTMLAttributes<HTMLButtonElement> {
+    type?: 'reset' | undefined
+}
 
 export const ConfirmBtn = (props: configBtn) => {
     return (
-        <span className={classNames({
+        <button className={classNames({
             [styles.btn]: true,
             [styles.confirm]: true,
             [props.className]: true
-        })} onClick={props.onClick}>
+        })} onClick={props.onClick}
+            type={props.type}
+        >
             {props.children}
-        </span>
+        </button>
     )
 }
 

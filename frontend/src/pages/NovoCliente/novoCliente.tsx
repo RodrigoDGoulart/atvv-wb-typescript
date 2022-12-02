@@ -1,5 +1,6 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CancelBtn, ConfirmBtn, Head, Header2, InserirComRotulo, InserirImagem } from "../../shared/components";
@@ -35,6 +36,10 @@ export default function NovoCliente() {
   const[erroRgList, setErroRgList] = useState(false);
   const[erroTelefoneList, setErroTelefoneList] = useState(false);
 
+  const [cpfGrande, setCpfGrande] = useState(false);
+  const [rgGrande, setRgGrande] = useState(false);
+  const [telGrande, setTelGrande] = useState(false);
+
   const voltar = () => {
     history('/clientes')
   }
@@ -45,24 +50,45 @@ export default function NovoCliente() {
     if(!nome) {setErroNome(true); retorno = false;} else {setErroNome(false)}
     if(!nomeSocial) {setErroNomeSocial(true); retorno = false;} else {setErroNomeSocial(false)}
     if(!cpfValor) {setErroCpfValor(true); retorno = false;} else {setErroCpfValor(false)}
+    if(cpfValor.length > 14) {setCpfGrande(true); retorno = false} else {setCpfGrande(false)}
     if(!cpfData) {setErroCpfData(true); retorno = false;} else {setErroCpfData(false)}
     if(rgList.length == 0) {setErroRgList(true); retorno = false;} else {setErroRgList(false)}
+    rgList.forEach(rg => {
+      if (rg.valor.length > 12) {setRgGrande(true); retorno = false}
+    })
     if(telefoneList.length == 0) {setErroTelefoneList(true); retorno = false;} else {setErroTelefoneList(false)} 
+    telefoneList.forEach(telefone => {
+      if (telefone.length > 17) {setTelGrande(true); retorno = false;}
+    })
     return retorno;
   }
 
   const cadastrar = () => {
     if (verificar()) {
-      console.log({
+      let sex: string;
+      switch(sexo){
+        case 'Masculino':
+          sex = 'M';
+          break;
+        case 'Feminino':
+          sex = 'F';
+          break;
+        default:
+          sex = 'O'
+      }
+
+      axios.post('http://localhost:4001/novo-cliente', {
         img,
-        sexo,
+        genero: sex,
         nome,
         nomeSocial,
-        cpfValor,
-        cpfData,
+        cpf: {
+          valor: cpfValor,
+          data: cpfData
+        },
         rgList,
-        telefoneList
-      });
+        telefoneList,
+      }).then(response => history(`/cliente/${response['data']['insertId']}`))
     }
   }
 
@@ -90,34 +116,33 @@ export default function NovoCliente() {
               <InserirComRotulo tipo="date" rotulo="Data de emissão" className={styles.scndInput} receber={setCpfData} />
             </div>
               {(erroCpfData || erroCpfValor) && <p className={styles.erro}>Por favor insira um CPF válido e a data de emissão.</p>}
+              {(cpfGrande) && <p className={styles.erro}>CPF muito grande.</p>}
           </div>
           <Header2>RGs</Header2>
           <div className={styles.containerCampos}>
-            <div className={styles.campos}>
-              <InserirComRotulo rotulo="Valor (ex.: 12.345.678-9)" placeholder="xx.xxx.xxx-x" className={styles.scndInput} receber={setRgValor} value={rgValor} />
-              <InserirComRotulo tipo="date" rotulo="Data de emissão" className={styles.scndInput} receber={setRgData} value={rgData} />
-              <ConfirmBtn className={styles.addBtn} onClick={() => {
+            <form className={styles.campos}>
+              <InserirComRotulo rotulo="Valor (ex.: 12.345.678-9)" placeholder="xx.xxx.xxx-x" className={styles.scndInput} receber={setRgValor} />
+              <InserirComRotulo tipo="date" rotulo="Data de emissão" className={styles.scndInput} receber={setRgData} />
+              <ConfirmBtn type='reset' className={styles.addBtn} onClick={() => {
                 if (!rgValor || !rgData) return
-                let lista = [...rgList];
-                lista.push({
-                  valor: rgValor,
-                  data: rgData
-                });
-                setRgList(lista);
-                setRgValor('');
-                setRgData('');
+                setRgList([...rgList, {valor: rgValor, data: rgData}]);
               }}>
                 <FontAwesomeIcon icon={faPlus} />
               </ConfirmBtn>
-            </div>
+            </form>
             {erroRgList && <p className={styles.erro}>Por favor insira ao menos um RG com data de emissão.</p>}
-            <Lista className={styles.lista} lista={rgList.map(item => `${item.valor} - ${item.data}`)} setFunction={setRgList} />
+            {(rgGrande) && <p className={styles.erro}>Um dos RGs está muito grande.</p>}
+            <Lista className={styles.lista} lista={rgList.map(item => `${item.valor} - ${item.data}`)} deleteFunction={(index: number) => {
+              let lista = [...rgList]
+              lista.splice(index, 1);
+              setRgList(lista);
+            }} />
           </div>
           <Header2>Telefones</Header2>
           <div className={styles.containerCampos}>
-            <div className={styles.campos}>
+            <form className={styles.campos}>
               <InserirComRotulo rotulo="Telefone" placeholder="+xx (xx) xxxxx-xxxx" className={styles.scndInput} receber={setTelefone} value={telefone} />
-              <ConfirmBtn className={styles.addBtn} onClick={() => {
+              <ConfirmBtn type="reset" className={styles.addBtn} onClick={() => {
                 if (!telefone) return
                 let lista = [...telefoneList];
                 lista.push(telefone);
@@ -126,9 +151,14 @@ export default function NovoCliente() {
               }}>
                 <FontAwesomeIcon icon={faPlus} />
               </ConfirmBtn>
-            </div>
+            </form>
             {erroTelefoneList && <p className={styles.erro}>Por favor insira ao menos um telefone.</p>}
-            <Lista className={styles.lista} lista={telefoneList} setFunction={setTelefoneList} />
+            {telGrande && <p className={styles.erro}>Um dos telefones está muito grande.</p>}
+            <Lista className={styles.lista} lista={telefoneList} deleteFunction={(index: number) => {
+              let lista = [...telefoneList]
+              lista.splice(index, 1);
+              setTelefoneList(lista);
+            }} />
           </div>
         </div>
         <div className={styles.btns}>
