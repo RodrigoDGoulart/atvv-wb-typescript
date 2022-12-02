@@ -13,7 +13,6 @@ import PerfilCliente from "../pages/PerfilCliente/perfilCliente";
 import Produtos from "../pages/Produtos/produtos";
 import RelatorioGenero from "../pages/RelatorioGênero/relatorioGenero";
 import RelatorioRanking from "../pages/RelatorioRanking/relatorioRanking";
-import RelatorioRankingGenero from "../pages/RelatorioRankingGenero/relatorioRankingGenero";
 import Servicos from "../pages/Servicos/servicos";
 
 export default function Rotas () {
@@ -40,7 +39,6 @@ export default function Rotas () {
                 <Route path='/menu-relatorio' element={<HomeRelatorio/>} />
                 <Route path='/relatorio/ranking/:id' element={<RelatorioRanking/>} />
                 <Route path='/relatorio/genero' element={<RelatorioGenero/>} />
-                <Route path='/relatorio/ranking-genero' element={<RelatorioRankingGenero/>} />
             </Routes>
         </BrowserRouter>
     )
