@@ -23,7 +23,7 @@ export default function Home() {
         <PainelBtn imagem={servicos} onClick={() => history('/servicos')}>
           Serviços
         </PainelBtn>
-        <PainelBtn imagem={relatorios} onClick={() => history('/relatorios')}>
+        <PainelBtn imagem={relatorios} onClick={() => history('/menu-relatorio')}>
           Relatórios
         </PainelBtn>
       </div>
