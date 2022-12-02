@@ -5,6 +5,17 @@
 
 .div {
     margin-bottom: 12px;
+    display: flex;
+
+    &__dominant {
+        flex: 1;
+    }
+
+    &__minor {
+        padding-left: 6px;
+        padding-right: 6px;
+        margin-right: 12px;
+    }
 }
 
 .div2 {

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { ConfirmBtn, Head, Header2, InserirImagem, Pesquisar } from "../../shared/components";
+import { BlueBtn, ConfirmBtn, Head, Header2, InserirImagem, Pesquisar } from "../../shared/components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import styles from './ConsumoCliente.module.scss';
@@ -68,7 +68,10 @@ export default function ConsumoCliente() {
         </div>
         <div className={styles.container}>
           <div className={styles.div}>
-            <ConfirmBtn onClick={() => history(`/add-consumo/${id}`)}>
+            <BlueBtn className={styles.div__minor} onClick={() => history(`/cliente/${id}`)}>
+              Voltar
+            </BlueBtn>
+            <ConfirmBtn className={styles.div__dominant} onClick={() => history(`/add-consumo/${id}`)}>
               <FontAwesomeIcon icon={faPlus} className={styles.addIcon} />
               Novo consumo
             </ConfirmBtn>
