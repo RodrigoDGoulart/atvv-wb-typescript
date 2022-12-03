@@ -178,6 +178,55 @@ app.put('/editar-produto', (req, res) => {
     });
 })
 
+app.post('/novo-servico', (req, res) => {
+    const {cod, nome, valor} = req.body;
+
+    let sql = 'INSERT INTO servico (cod, nome, valor) VALUES (?, ?, ?)';
+    db.query(sql, [cod, nome, valor], (err, result) => {
+        if(err) console.log(err);
+        else res.send(result);
+    })
+});
+
+app.get('/servicos', (req, res) => {
+    let sql = 'SELECT * FROM servico'
+    db.query(sql, (err, result) => {
+        if(err) console.log(err);
+        else res.send(result);
+    })
+});
+
+app.delete('/deletar-servico', (req, res) => {
+    const { cod } = req.query;
+    let sql = 'DELETE FROM servico WHERE cod = ?'
+    db.query(sql, [cod], (err, result) => {
+        if(err) console.log(err);
+        else res.send(result);
+    })
+})
+
+app.get('/servico', (req, res) => {
+    const { cod } = req.query;
+
+    let sql = 'SELECT * FROM servico WHERE cod = ?';
+    db.query(sql, [cod], (err, result) => {
+        if(err) console.log(err);
+        else res.send(result[0]);
+    })
+});
+
+app.put('/editar-servico', (req, res) => {
+    const { cod } = req.query;
+
+    const {nome, valor} = req.body;
+
+    let sql = 'UPDATE servico SET nome =  ?, valor = ? WHERE cod = ?'
+    db.query(sql, [nome, valor, cod], (err, result) => {
+        if(err) console.log(err);
+        else res.send(result);
+    });
+})
+
 app.get('/', (req, res) => {
     res.send('Hello world');
 });

@@ -15,40 +15,14 @@ interface configLista {
 }
 
 export default function ListaClientes(props: configLista) {
-
-  
   let itens = []
   
   let select = props.select === undefined ? false : props.select;
-  
-  async function getItens () {
-    if (props.tipo === 'produto') {
-      // puxar lista produto
-      await axios.get('http://localhost:4001/produtos').then(response => {
-        console.log(response);
-        return response.data
-      })
-    } else {
-      // puxar lista serviços
-      return [{
-        foto: foto,
-        nome: 'corte',
-        valor: 45.99,
-        cod: '12345'
-      }, {
-        foto: foto,
-        nome: 'hidratação',
-        valor: 99.49,
-        cod: '666'
-      }]
-    }
-  }
 
-  
-  
   const [lista, setLista] = useState(itens);
   const [selecionado, setSelecionado] = useState(Object);
   const [paraDeletar, setParaDeletar] = useState<number>()
+  const [paraDeletarNome, setParaDeletarNome] = useState('');
 
   const [confirm, setConfirm] = useState(false);
   
@@ -60,13 +34,20 @@ export default function ListaClientes(props: configLista) {
   }
 
   const deletar = () => {
-    axios.delete(`http://localhost:4001/deletar-produto?cod=${paraDeletar}`).then(() => {
-      setConfirm(false);
-    });
+    if (props.tipo === 'produto') {
+      axios.delete(`http://localhost:4001/deletar-produto?cod=${paraDeletar}`).then(() => {
+        setConfirm(false);
+      });
+    } else {
+      axios.delete(`http://localhost:4001/deletar-servico?cod=${paraDeletar}`).then(() => {
+        setConfirm(false);
+      });
+    }
   }
 
   const editar = (cod: number) => {
-    history(`/editar-produto/${cod}`)
+    if(props.tipo === 'produto') history(`/editar-produto/${cod}`);
+    else {history(`/editar-servico/${cod}`);}
   }
 
   const selecionar = (item: Object) => {
@@ -75,14 +56,25 @@ export default function ListaClientes(props: configLista) {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:4001/produtos').then(response => {
-        let lista = response.data
-        let novaLista = lista.filter(item => {
-          return testaBusca(item.nome)
-        });
-        setLista(novaLista);
-        setSelecionado({cod: NaN});
-    });
+    if (props.tipo === 'produto') {
+      axios.get('http://localhost:4001/produtos').then(response => {
+          let lista = response.data
+          let novaLista = lista.filter(item => {
+            return testaBusca(item.nome)
+          });
+          setLista(novaLista);
+          setSelecionado({cod: NaN});
+      });
+    } else {
+      axios.get('http://localhost:4001/servicos').then(response => {
+          let lista = response.data
+          let novaLista = lista.filter(item => {
+            return testaBusca(item.nome)
+          });
+          setLista(novaLista);
+          setSelecionado({cod: NaN});
+      });
+    }
   }, [props.busca, props.tipo, confirm])
 
   return (
@@ -90,6 +82,7 @@ export default function ListaClientes(props: configLista) {
       {lista.map(item => (
         <PainelPS select={select} selected={selecionado['cod'] === item['cod']} aoSelecionar={() => selecionar(item)} key={item.cod} titulo={item.nome} subtitulo={`Cod.: ${item.cod}  -  R$${item.valor}`} imagem={foto} onEdit={() => editar(item.cod)} onDelete={() => {
           setParaDeletar(item.cod)
+          setParaDeletarNome(item.nome)
           setConfirm(true);
         }} />
       ))}
@@ -98,7 +91,7 @@ export default function ListaClientes(props: configLista) {
         onConfirm={() => deletar()}
         closeReturn={setConfirm}
       >
-        <p className={styles.confirmMsg}>Excluir {selecionado['nome']}?</p>
+        <p className={styles.confirmMsg}>Excluir {paraDeletarNome}?</p>
       </Confirmar>
     </div>
   )
