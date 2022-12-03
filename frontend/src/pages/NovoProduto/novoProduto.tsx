@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CancelBtn, ConfirmBtn, Head, Header2, InserirComRotulo, InserirImagem } from "../../shared/components";
@@ -31,11 +32,10 @@ export default function NovoProduto() {
 
   const cadastrar = () => {
     if (verificar()) {
-      console.log({
-        img,
-        nome,
-        valor,
-        cod
+      axios.post('http://localhost:4001/novo-produto', {
+        cod, nome, valor
+      }).then(() => {
+        voltar();
       });
     }
   }
@@ -63,8 +63,8 @@ export default function NovoProduto() {
           </div>
         </div>
         <div className={styles.btns}>
-          <ConfirmBtn className={styles.btn} onClick={() => cadastrar()}>Cadastrar produto</ConfirmBtn>
           <CancelBtn className={styles.btn} onClick={() => voltar()}>Cancelar cadastro</CancelBtn>
+          <ConfirmBtn className={styles.btn} onClick={() => cadastrar()}>Cadastrar produto</ConfirmBtn>
         </div>
       </div>
     </>

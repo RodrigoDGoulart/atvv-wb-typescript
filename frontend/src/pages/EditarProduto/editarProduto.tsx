@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CancelBtn, ConfirmBtn, Head, Header2, InserirComRotulo, InserirImagem } from "../../shared/components";
 import foto from '../../shared/images/produtos.jpg';
@@ -6,20 +7,13 @@ import styles from './EditarProduto.module.scss';
 
 export default function EditarProduto() {
 
-  const { id } = useParams();
-
-  let produto = {
-    foto: foto,
-    nome: 'hidratação',
-    valor: 99.49,
-    cod: '666'
-  }
+  const { cod } = useParams();
 
   const history = useNavigate();
 
-  const [img, setImg] = useState(produto.foto);
-  const [nome, setNome] = useState(produto.nome);
-  const [valor, setValor] = useState<number | undefined>(produto.valor);
+  const [img, setImg] = useState(foto);
+  const [nome, setNome] = useState('');
+  const [valor, setValor] = useState('');
 
   const [erroNome, setErroNome] = useState(false);
   const [erroValor, setErroValor] = useState(false);
@@ -28,28 +22,36 @@ export default function EditarProduto() {
     history('/produtos');
   }
 
+  
   const verificar = () => {
     let retorno = true;
     if (!nome) { setErroNome(true); retorno = false; } else { setErroNome(false) }
     if (!valor) { setErroValor(true); retorno = false; } else { setErroValor(false) }
     return retorno;
   }
-
+  
   const cadastrar = () => {
     if (verificar()) {
-      console.log({
-        img,
-        nome,
-        valor,
-        cod: id
-      });
+      console.log(nome, valor);
+      axios.put(`http://localhost:4001/editar-produto?cod=${cod}`, {
+        nome, valor
+      }).then(() => voltar());
     }
   }
 
+  useEffect(() => {
+    axios.get(`http://localhost:4001/produto?cod=${cod}`, ).then(response => {
+      let produto = response.data;
+      console.log(response.data);
+      setNome(produto.nome);
+      setValor(produto.valor);
+    });
+  }, [])
+  
   return (
     <>
       <Head selecionado={2} />
-      <Header2>Editando {produto.nome}</Header2>
+      <Header2>Editando {nome}</Header2>
       <div className={styles.container}>
         <div className={styles.fstSection}>
           <InserirImagem receberArquivo={setImg} className={styles.img} value={img}/>
@@ -66,7 +68,7 @@ export default function EditarProduto() {
         </div>
         <div className={styles.btns}>
           <CancelBtn className={styles.btn} onClick={() => voltar()}>Cancelar edição</CancelBtn>
-          <ConfirmBtn className={styles.btn} onClick={() => cadastrar()}>Editar {produto.nome}</ConfirmBtn>
+          <ConfirmBtn className={styles.btn} onClick={() => cadastrar()}>Editar {nome}</ConfirmBtn>
         </div>
       </div>
     </>

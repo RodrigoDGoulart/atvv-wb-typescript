@@ -3,6 +3,7 @@ import Clientes from "../pages/Clientes/clientes";
 import ConsumoCliente from "../pages/ConsumoCliente/consumoCliente";
 import EditarCliente from "../pages/EditarCliente/editarCliente";
 import EditarProduto from "../pages/EditarProduto/editarProduto";
+import EditarServico from "../pages/EditarServico/editarServico";
 import Home from "../pages/Home/home";
 import HomeRelatorio from "../pages/HomeRelatorio/homeRelatorio";
 import NovoCliente from "../pages/NovoCliente/novoCliente";
@@ -30,14 +31,14 @@ export default function Rotas () {
 
                 <Route path='/produtos' element={<Produtos/>} />
                 <Route path='/novo-produto' element={<NovoProduto/>} />
-                <Route path='/editar-produto/:id' element={<EditarProduto/>} />
+                <Route path='/editar-produto/:cod' element={<EditarProduto/>} />
 
                 <Route path='/servicos' element={<Servicos />} />
                 <Route path='/novo-servico' element={<NovoServico/>} />
-                <Route path='/editar-produto/:id' element={<EditarProduto/>} />
+                <Route path='/editar-servico/:cod' element={<EditarServico/>} />
 
                 <Route path='/menu-relatorio' element={<HomeRelatorio/>} />
-                <Route path='/relatorio/ranking/:id' element={<RelatorioRanking/>} />
+                <Route path='/relatorio/ranking/:n' element={<RelatorioRanking/>} />
                 <Route path='/relatorio/genero' element={<RelatorioGenero/>} />
             </Routes>
         </BrowserRouter>
